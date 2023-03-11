@@ -1,10 +1,15 @@
 import './Form.css';
 
-const Form = ({onFormChange, formValue}) => {
-   
+const Form = ({ onFormChange, formValue }) => {
 
     return (
-       <input type="text" className="searchBar" onChange={onFormChange} value={formValue} placeholder="type something..."/>
+        <input
+            type="text"
+            className="searchBar"
+            onChange={onFormChange}
+            value={formValue}
+            placeholder="type something..."
+        />
     );
 };
 
