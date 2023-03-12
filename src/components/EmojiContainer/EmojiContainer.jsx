@@ -6,7 +6,7 @@ import EmojiRow from "../EmojiRow/EmojiRow";
 import './EmojiContainer.css';
 
 const EmojiContainer = ({ search, limit }) => {
-    console.log(limit);
+
     const [serverEmojis, setServerEmojis] = useState([{
         title: "100",
         symbol: "💯"
@@ -19,10 +19,10 @@ const EmojiContainer = ({ search, limit }) => {
     }
 
     const filteredEmojis = serverEmojis.filter(emoji => emoji.title.toLowerCase().includes(search) || emoji.keywords.toLowerCase().includes(search));
-    filteredEmojis.length = isNaN(limit) ? serverEmojis.length : limit;
+    filteredEmojis.length = limit === "All" ? serverEmojis.length : limit;
 
     const renderEmojiRows = (emojiArray) => {
-        console.log("hey");
+    
         return emojiArray.map((emoji, index) => {
             return (
                 <EmojiRow item={emoji} key={index} />
