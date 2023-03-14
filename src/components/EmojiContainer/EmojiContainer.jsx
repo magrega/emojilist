@@ -20,23 +20,21 @@ const EmojiContainer = ({ search, limit }) => {
 
     const filteredEmojis = serverEmojis.filter(emoji => emoji.title.toLowerCase().includes(search) || emoji.keywords.toLowerCase().includes(search));
     filteredEmojis.length = limit === "All" ? serverEmojis.length : limit;
-
-    const renderEmojiRows = (emojiArray) => {
-    
-        return emojiArray.map((emoji, index) => {
-            return (
-                <EmojiRow item={emoji} key={index} />
-            )
-        })
-    }
-
-    const emojiRows = renderEmojiRows(filteredEmojis);
-
+   
     useEffect(() => updateServerEmojis(), []);
+
+    if (filteredEmojis[0] === undefined) 
+    {
+        return <NotFound />
+    }
 
     return (
         <div className="EmojiContainer">
-            {emojiRows.length > 0 ? emojiRows : <NotFound />}
+            {filteredEmojis.map((emoji) => {
+                return (
+                    <EmojiRow item={emoji} key={emoji.title} />
+                )
+            })}
         </div>
     );
 };
