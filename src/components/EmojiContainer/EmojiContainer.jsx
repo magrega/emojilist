@@ -17,14 +17,16 @@ const EmojiContainer = ({ search, limit }) => {
             setServerEmojis(emojis)
         })
     }
-
-    const filteredEmojis = serverEmojis.filter(emoji => emoji.title.toLowerCase().includes(search) || emoji.keywords.toLowerCase().includes(search));
-    filteredEmojis.length = limit === "All" ? serverEmojis.length : limit;
-   
+    
     useEffect(() => updateServerEmojis(), []);
 
-    if (filteredEmojis[0] === undefined) 
-    {
+    const filteredEmojis = serverEmojis.filter(emoji => emoji.title.toLowerCase().includes(search) || emoji.keywords.toLowerCase().includes(search));
+
+    if (filteredEmojis.length === "All") {
+        filteredEmojis.length = serverEmojis.length;
+    } else if (filteredEmojis.length > limit) {
+        filteredEmojis.length = limit;
+    } else if (filteredEmojis.length === 0) {
         return <NotFound />
     }
 
